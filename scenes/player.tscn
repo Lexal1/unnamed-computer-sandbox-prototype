@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://pe3ttkphaibb" path="res://assets/player.png" id="1_7cd0c"]
 [ext_resource type="Script" uid="uid://3mjoqo43yobe" path="res://scripts/player.gd" id="1_wh74w"]
 [ext_resource type="Shader" uid="uid://bnobd3qinwotm" path="res://scripts/models.gdshader" id="2_qhqgy"]
+[ext_resource type="Material" uid="uid://dq2bo6521l0vq" path="res://assets/resources/model_material.tres" id="4_dqkch"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dqkch"]
 render_priority = 0
@@ -17,13 +18,9 @@ shader_parameter/affine_weight = 0.1
 radius = 0.4
 height = 1.95
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1h18"]
-transparency = 1
-albedo_color = Color(0.775945, 0.403927, 9.62615e-07, 0.223529)
-
 [sub_resource type="BoxMesh" id="BoxMesh_mnnn6"]
-material = SubResource("StandardMaterial3D_i1h18")
-size = Vector3(1.01, 1.01, 1.01)
+material = ExtResource("4_dqkch")
+size = Vector3(1.02, 1.02, 1.02)
 
 [node name="Player" type="CharacterBody3D" unique_id=1501628855]
 script = ExtResource("1_wh74w")
@@ -51,5 +48,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78793)
 
 [node name="BlockOutline" type="MeshInstance3D" parent="." unique_id=426108941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-visible = false
 mesh = SubResource("BoxMesh_mnnn6")

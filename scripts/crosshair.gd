@@ -1,6 +1,6 @@
 extends Line2D
 # what the fuck. google ai code that works. im going to hell for this
-@export var max_points: int = 100
+@export var max_points: int = 50
 @export var width_pixels: float = 15.0
 @export var scroll_speed: float = 1.5
 @export var pulse_rate: float = 2.5    # bpm(Hz)

@@ -15,7 +15,7 @@ var dead = false
 @onready var camera = $Camera
 @onready var raycast = $Camera/RayCast
 @onready var blok: AudioStreamPlayer3D = $Camera/RayCast/blok
-#@onready var block_outline: MeshInstance3D = $BlockOutline
+@onready var block_outline: MeshInstance3D = $BlockOutline
 
 signal place_block(pos,t)
 signal break_block(pos)
@@ -78,8 +78,8 @@ func _physics_process(delta: float) -> void:
 		var bz = floor(pos.z) +0.5
 		var bpos = Vector3(bx,by,bz) - self.position
 		
-		#block_outline.position = bpos
-		#block_outline.visible = true
+		block_outline.position = bpos
+		block_outline.visible = true
 		
 		if Input.is_action_just_pressed("1"):
 			#blok.stream = BREAKSFX
@@ -89,8 +89,8 @@ func _physics_process(delta: float) -> void:
 			#blok.stream = PLACESFX
 			emit_signal("place_block", pos +norm, BlockRegistry.get_idx_of(&"plate"))
 			#blok.play()
-	#else:
-		#block_outline.visible = false
+	else:
+		block_outline.visible = false
 
 	move_and_slide()
 

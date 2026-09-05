@@ -2,9 +2,12 @@
 
 [ext_resource type="Shader" uid="uid://bnobd3qinwotm" path="res://scripts/models.gdshader" id="1_8vyal"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_l1xyv"]
+
 [resource]
 render_priority = 0
 shader = ExtResource("1_8vyal")
+shader_parameter/albedo_texture = SubResource("PlaceholderTexture2D_l1xyv")
 shader_parameter/texture_tile = Vector2(1, 1)
 shader_parameter/snap_enabled = true
 shader_parameter/snap_resolution = 100.0
