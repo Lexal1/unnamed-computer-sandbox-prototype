@@ -52,7 +52,6 @@ stream = ExtResource("4_7r2ba")
 [node name="HUD" parent="." unique_id=1430509112 instance=ExtResource("6_p57ef")]
 z_index = 99
 offset_bottom = 1.5258789e-05
-mouse_filter = 2
 
 [connection signal="break_block" from="Player" to="." method="_on_player_break_block"]
 [connection signal="die" from="Player" to="." method="_on_player_die"]

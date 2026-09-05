@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://buipywsyrvbve"]
 
-[ext_resource type="Script" uid="uid://b153b1nodvwsg" path="res://scenes/file.gd" id="1_g4uxh"]
+[ext_resource type="Script" uid="uid://dsfndo1innaq4" path="res://scenes/draggable.gd" id="1_g4uxh"]
 [ext_resource type="Texture2D" uid="uid://b2y6nxaslmwm6" path="res://assets/robotos.png" id="1_v2vit"]
 
-[node name="File" type="Control" unique_id=338330628]
+[node name="Draggable" type="Control" unique_id=338330628]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 3
 anchors_preset = 0

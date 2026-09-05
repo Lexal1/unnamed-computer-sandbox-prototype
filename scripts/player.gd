@@ -27,8 +27,9 @@ func _ready():
 func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("pause"):
 		paused = not paused
-		if paused: Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else: Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		print("pasued: ",paused)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) if paused else Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		#SHUT UP YOU STUPID WARNING! I WANT MY TERNIARY OPERATORS TO CUT DOWN ON CODE LENGTH!!!! EFFICACY BE DAMNED!!!!
 		
 	if paused: return
 	
