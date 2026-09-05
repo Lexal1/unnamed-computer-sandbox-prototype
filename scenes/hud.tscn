@@ -47,7 +47,6 @@ mouse_filter = 2
 position = Vector2(-7, 0)
 width = 1.0
 script = ExtResource("1_ahhtf")
-max_points = 10
 
 [node name="CRT" type="CanvasLayer" parent="." unique_id=993384757]
 layer = 9
