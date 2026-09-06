@@ -12,12 +12,12 @@ const vertices = [
 	Vector3(1,1,1)
 ]
 
-const TOP = [2,3,7,6]
+const TOP =    [2,3,7,6]
 const BOTTOM = [0,4,5,1]
-const NORTH = [7,5,4,6]
-const SOUTH = [2,0,1,3]
-const EAST = [3,1,5,7]
-const WEST = [6,4,0,2]
+const NORTH =  [7,5,4,6]
+const SOUTH =  [2,0,1,3]
+const EAST =   [3,1,5,7]
+const WEST =   [6,4,0,2]
 
 @export var shaderMaterial: ShaderMaterial
 

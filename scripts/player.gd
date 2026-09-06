@@ -38,7 +38,7 @@ func _unhandled_input(event: InputEvent):
 		camera.rotation.x = camera.rotation.x - event.relative.y * sensitivity
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 	
-	if Input.is_action_just_pressed("perspective"):
+	if Input.is_action_just_pressed("debug1b"):
 		perspective = not perspective
 		if perspective:
 			camera.position.y = 3
