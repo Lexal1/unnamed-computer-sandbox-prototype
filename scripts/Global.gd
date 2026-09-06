@@ -17,6 +17,8 @@ const TEXTURE_ATLAS_SIZE = Vector2(4,4)
 
 var time = Time.get_time_dict_from_system()
 
+var world_seed = randi_range(0,99)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug2b"):
 		var mode := DisplayServer.window_get_mode()

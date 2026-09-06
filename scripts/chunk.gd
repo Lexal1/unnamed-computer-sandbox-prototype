@@ -21,6 +21,8 @@ const WEST =   [6,4,0,2]
 
 @export var shaderMaterial: ShaderMaterial
 
+var noise = FastNoiseLite.new()
+
 var blocksMutex: Mutex = Mutex.new()
 var blocks = []
 
@@ -29,8 +31,6 @@ var mesh : Mesh = null
 var mesh_instance : MeshInstance3D = null
 
 var material = preload("res://assets/resources/new_standard_material_3d.tres")
-
-var noise = FastNoiseLite.new()
 
 var chunk_position = Vector2.ZERO:
 	get:
@@ -41,6 +41,7 @@ var chunk_position = Vector2.ZERO:
 		self.visible = false
 
 func _ready():
+	noise.seed = Global.world_seed
 	#generate()
 	#update()
 	generate_and_update()
@@ -51,6 +52,7 @@ func generate_and_update():
 func _generate_and_update():
 	_generate()
 	update()
+
 func _generate():
 	blocksMutex.lock()
 	blocks = []
