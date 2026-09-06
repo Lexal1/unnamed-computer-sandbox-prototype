@@ -8,13 +8,16 @@ const PLACESFX = preload("res://assets/audio/place.wav")
 var selected = 6
 var sensitivity = 0.005
 
+var t_bob = 0.0
+
 var paused = false
 var perspective = false
 var dead = false
 
-@onready var camera = $Camera
-@onready var raycast = $Camera/RayCast
-@onready var blok: AudioStreamPlayer3D = $Camera/RayCast/blok
+@onready var head: Node3D = $Head
+@onready var camera = $Head/Camera
+@onready var raycast = $Head/Camera/RayCast
+@onready var blok: AudioStreamPlayer3D = $Head/Camera/RayCast/blok
 @onready var block_outline: MeshInstance3D = $BlockOutline
 
 signal place_block(pos,t)
@@ -34,8 +37,8 @@ func _unhandled_input(event: InputEvent):
 	if paused: return
 	
 	if event is InputEventMouseMotion:
-		rotation.y = rotation.y - event.relative.x * sensitivity
-		camera.rotation.x = camera.rotation.x - event.relative.y * sensitivity
+		head.rotate_y(-event.relative.x * sensitivity)
+		camera.rotate_x(-event.relative.y * sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 	
 	if Input.is_action_just_pressed("debug1b"):
@@ -62,13 +65,17 @@ func _physics_process(delta: float) -> void:
 
 	# handle input direction and handle the movement/deceleration
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if is_on_floor():
+		if direction:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = lerp(velocity.x, direction.x * SPEED, delta * 20.0)
+			velocity.z = lerp(velocity.z, direction.z * SPEED, delta * 20.0)
+	else: #TODO: condense these somehow?
+		velocity.x = lerp(velocity.x, direction.x * SPEED, delta * 5.0)
+		velocity.z = lerp(velocity.z, direction.z * SPEED, delta * 5.0)
 
 	if raycast.is_colliding():
 		var norm = raycast.get_collision_normal()
@@ -93,7 +100,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		block_outline.visible = false
 
+	#head bob
+	t_bob += delta * velocity.length() * float(is_on_floor())
+	camera.transform.origin = headbob(t_bob)
+
 	move_and_slide()
+
+func headbob(time) -> Vector3:
+	var pos = Vector3.ZERO 
+	pos.y = sin(time * 2.0) * 0.05     #2.0 = BOB FREQUENCY 0.05 = BOB AMPLITUDE
+	pos.x = cos(time * 2.0 / 2) * 0.05 #TODO: UNHARDCODE THIS
+	return pos
+
 
 func play_break_sfx():
 	blok.stream = BREAKSFX
