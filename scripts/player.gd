@@ -10,7 +10,7 @@ var sensitivity = 0.005
 
 var t_bob = 0.0
 
-var paused = false
+#var paused = false
 var perspective = false
 var dead = false
 
@@ -29,12 +29,13 @@ func _ready():
 
 func _unhandled_input(event: InputEvent):
 	if Input.is_action_just_pressed("pause"):
-		paused = not paused
-		print("pasued: ",paused)
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) if paused else Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		#paused = not paused
+		Global.toggle_pause_state()
+		print("pasued: ",Global.is_paused())
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) if Global.is_paused() else Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		#SHUT UP YOU STUPID WARNING! I WANT MY TERNIARY OPERATORS TO CUT DOWN ON CODE LENGTH!!!! EFFICACY BE DAMNED!!!!
 		
-	if paused: return
+	if Global.is_paused(): return
 	
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * sensitivity)
@@ -51,6 +52,8 @@ func _unhandled_input(event: InputEvent):
 			camera.position.z = 0
 
 func _physics_process(delta: float) -> void:
+	if Global.is_paused():
+		return
 	if position.y <= -25 and !dead:
 		dead = true
 		die.emit()

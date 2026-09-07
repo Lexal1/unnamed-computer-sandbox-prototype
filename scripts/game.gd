@@ -9,6 +9,7 @@ var chunk_scene = preload("res://scenes/chunk.tscn")
 @onready var player: CharacterBody3D = $Player
 @onready var environment: WorldEnvironment = $WorldEnvironment
 @onready var die: AudioStreamPlayer = $die
+@onready var pause_menu: Control = $PauseMenu
 
 func _ready() -> void:
 	for i in range(0, render_distance):
@@ -16,6 +17,8 @@ func _ready() -> void:
 			var chunk = chunk_scene.instantiate()
 			chunk.chunk_position = Vector2(i,j)
 			world.add_child(chunk)
+	Global.on_pause.connect(show_pause_menu)
+	Global.on_resume.connect(hide_pause_menu)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug1"):
@@ -96,3 +99,8 @@ func _on_player_die() -> void:
 	await die.finished
 	get_tree().quit()
 	
+func show_pause_menu():
+	pause_menu.show()
+
+func hide_pause_menu():
+	pause_menu.hide()
